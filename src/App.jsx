@@ -339,14 +339,18 @@ export default function App() {
   ];
 
   const [board, setBoard] = useState(emptyBoard);
-  const [step, setStep] = useState("x");
+  const [isX,setIsX] = useState(true)
+
 
   const handleCellClick = (i, j) => {
-    console.log(i, j);
+    board[i][j].value = isX ? "x" : "o"
+    setBoard([...board])
+    setIsX((prev) => !prev)
+
   };
 
   return (
-    <div id="board-container" className={`step-${step}`}>
+    <div id="board-container" className={`step-${isX  ? "x" : "o"}`}>
       {board.map((row, rowIndex) => (
         <div className="row" key={rowIndex}>
           {row.map((cell, cellIndex) => (
