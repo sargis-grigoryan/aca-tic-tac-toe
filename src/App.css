@@ -1,0 +1,97 @@
+#board-container {
+  display: flex;
+  width: 80vh;
+  height: 80vh;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3px;
+}
+
+#board-container.finished .cell:not(.x) {
+  pointer-events: none;
+  background-color: #f7a3a3;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 3px;
+  flex: 1;
+}
+
+.cell {
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-radius: 3px;
+  flex: 1;
+}
+
+.cell.x,
+.cell.o {
+  background-size: contain;
+}
+
+.cell.x {
+  background-image: url("./assets/x.png");
+}
+
+.cell.o {
+  background-image: url("./assets/o.png");
+}
+
+.step-o .cell:not(.x):hover,
+.step-x .cell:not(.o):hover {
+  background-size: contain;
+  opacity: 0.4;
+}
+
+.step-x .cell:not(.o):hover {
+  background-image: url("./assets/x.png");
+}
+
+.step-o .cell:not(.x):hover {
+  background-image: url("./assets/o.png");
+}
+
+.cell.win {
+  -webkit-animation: rotating 1s linear infinite;
+  -moz-animation: rotating 1s linear infinite;
+  -ms-animation: rotating 1s linear infinite;
+  -o-animation: rotating 1s linear infinite;
+  animation: rotating 1s linear infinite;
+}
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    scale: 1;
+  }
+  50% {
+    scale: 0.2;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    scale: 1;
+  }
+}
+@keyframes rotating {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    scale: 1;
+  }
+  50% {
+    scale: 0.2;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    scale: 1;
+  }
+}
