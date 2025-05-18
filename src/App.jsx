@@ -343,6 +343,19 @@ export default function App() {
 
   const handleCellClick = (i, j) => {
     console.log(i, j);
+
+    if (board[i][j].value) return;
+
+    const updatedBoard = board.map((row, rowIndex) =>
+      row.map((cell, colIndex) => {
+        if (rowIndex === i && colIndex === j) {
+          return { ...cell, value: step };
+        }
+        return cell;
+      })
+    );
+    setBoard(updatedBoard);
+    setStep(step === "x" ? "o" : "x");
   };
 
   return (
