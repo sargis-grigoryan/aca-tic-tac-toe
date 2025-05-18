@@ -341,9 +341,30 @@ export default function App() {
   const [board, setBoard] = useState(emptyBoard);
   const [step, setStep] = useState("x");
 
-  const handleCellClick = (i, j) => {
-    console.log(i, j);
-  };
+ 
+
+const handleCellClick = (i, j) => {
+ 
+  if (board[i][j].value !== null) return;
+  
+  const newBoard = board.map((row, rowIndex) => 
+    row.map((cell, cellIndex) => {
+      if (rowIndex === i && cellIndex === j) {
+        return { value: step }; 
+      } else {
+        return cell; 
+      }
+    })
+  );
+
+ 
+  setBoard(newBoard);
+  setStep(step === "x" ? "o" : "x");
+};
+ 
+
+
+
 
   return (
     <div id="board-container" className={`step-${step}`}>
