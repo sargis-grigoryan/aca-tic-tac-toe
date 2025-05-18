@@ -5,344 +5,37 @@ import Cell from "./components/Cell";
 export default function App() {
   const boardSize = 10;
 
-  // const emptyBoard = Array(boardSize)
-  //   .fill(null)
-  //   .map(() => {
-  //     return Array(boardSize)
-  //       .fill(null)
-  //       .map(() => ({
-  //         value: null,
-  //       }));
-  //   });
-
-  const emptyBoard = [
-    [
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-    ],
-    [
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: "x",
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: "o",
-      },
-      {
-        value: null,
-      },
-    ],
-    [
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-    ],
-    [
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-    ],
-    [
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-    ],
-    [
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-    ],
-    [
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-    ],
-    [
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-    ],
-    [
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-    ],
-    [
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-      {
-        value: null,
-      },
-    ],
-  ];
+  const emptyBoard = Array(boardSize)
+    .fill(null)
+    .map(() => {
+      return Array(boardSize)
+        .fill(null)
+        .map(() => ({
+          value: null,
+        }));
+    });
 
   const [board, setBoard] = useState(emptyBoard);
   const [step, setStep] = useState("x");
 
   const handleCellClick = (i, j) => {
     console.log(i, j);
+
+    setBoard(board.map((row, rowIndex) => {
+      if (rowIndex === i) {
+        return row.map((cell, cellIndex) => {
+          if (cellIndex === j && cell.value === null) {
+            return {value: step};
+          } else {
+            return cell;
+          }
+        })
+      } else {
+        return row;
+      }
+    }))
+
+    setStep(step === "x" ? "o" : "x");
   };
 
   return (
