@@ -18,23 +18,21 @@ export default function App() {
 	const [board, setBoard] = useState(emptyBoard);
 	const [step, setStep] = useState('x');
 
+	const checkWin = () => {};
+
 	const handleCellClick = (i, j) => {
-		setBoard(
-			board.map((row, rowIndex) => {
-				if (rowIndex === i) {
-					return row.map((cell, cellIndex) => {
-						if (cellIndex === j && cell.value === null) {
-							return { value: step };
-						} else {
-							return cell;
-						}
-					});
-				} else {
-					return row;
-				}
-			})
-		);
+		if (board[i][j].value !== null) {
+			return;
+		}
+
+		const newBoard = [...board];
+
+		newBoard[i] = [...newBoard[i]];
+		newBoard[i][j] = { ...newBoard[i][j], value: step };
+
+		setBoard(newBoard);
 		setStep(step === 'x' ? 'o' : 'x');
+		checkWin(newBoard);
 	};
 
 	return (
