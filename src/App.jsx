@@ -1,27 +1,18 @@
 import { useState } from 'react';
 import './App.css';
 import Cell from './components/Cell';
+import { generateInitialBoard, getNewStateWithWinningCells } from './service';
 
 export default function App() {
 	const boardSize = 10;
 
-	const emptyBoard = Array(boardSize)
-		.fill(null)
-		.map(() => {
-			return Array(boardSize)
-				.fill(null)
-				.map(() => ({
-					value: null,
-				}));
-		});
-
-	const [board, setBoard] = useState(emptyBoard);
+	const [board, setBoard] = useState(() => generateInitialBoard(boardSize));
 	const [step, setStep] = useState('x');
-
-	const checkWin = () => {};
+	const [isWin, setIsWin] = useState(false);
+	const winningCount = 5;
 
 	const handleCellClick = (i, j) => {
-		if (board[i][j].value !== null) {
+		if (isWin || board[i][j].value !== null) {
 			return;
 		}
 
@@ -30,9 +21,12 @@ export default function App() {
 		newBoard[i] = [...newBoard[i]];
 		newBoard[i][j] = { ...newBoard[i][j], value: step };
 
-		setBoard(newBoard);
+		const { board: newBoardWithWinnings, hasWinning } =
+			getNewStateWithWinningCells(newBoard, step, winningCount, i, j);
+
+		setBoard(newBoardWithWinnings);
+		setIsWin(hasWinning);
 		setStep(step === 'x' ? 'o' : 'x');
-		checkWin(newBoard);
 	};
 
 	return (
@@ -46,6 +40,7 @@ export default function App() {
 							onClick={handleCellClick}
 							rowIndex={rowIndex}
 							cellIndex={cellIndex}
+							isWinning={cell.isWinning}
 						/>
 					))}
 				</div>
