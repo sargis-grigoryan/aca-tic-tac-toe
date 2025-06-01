@@ -1,7 +1,13 @@
-export default function Cell({ value, onClick, rowIndex, cellIndex }) {
+export default function Cell({
+  value,
+  onClick,
+  rowIndex,
+  cellIndex,
+  isWinning,
+}) {
   return (
     <div
-      className={`cell ${value ?? ""}`}
+      className={`cell ${value ?? ""} ${isWinning ? "win" : ""}`}
       onClick={() => onClick(rowIndex, cellIndex)}
     ></div>
   );
